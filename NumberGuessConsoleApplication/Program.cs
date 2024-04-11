@@ -9,6 +9,7 @@ namespace NumberGuessConsoleApplication
             Random random = new Random();
             int aim = random.Next(1, 100);
             int times = 0; 
+            int guess;
 
             Console.WriteLine("Welcome to the Number Guess Console Application");
             Console.WriteLine("There is an expected value between 1 and 100. Please Guess it");
@@ -30,9 +31,22 @@ namespace NumberGuessConsoleApplication
                     Console.WriteLine(aim);
                     continue;
                 }
-                if (input == aim.ToString()){
+
+                if (!int.TryParse(input, out guess))
+                {
+                    Console.WriteLine("Please enter a valid format.");
+                    continue;
+                }
+
+                if (guess == aim){
                     Console.WriteLine("Congratulations! your value is the expected");
                     Console.WriteLine("You used " + times + " times to find the expected value");
+                }
+                else if (guess > aim){
+                    Console.WriteLine("You value is higher than the expected, please try again.");
+                }
+                else if (guess < aim){
+                    Console.WriteLine("You value is lower than the expected, please try again.");
                 }
             }
 
