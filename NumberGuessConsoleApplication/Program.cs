@@ -34,9 +34,15 @@ namespace NumberGuessConsoleApplication
 
                 if (!int.TryParse(input, out guess))
                 {
-                    Console.WriteLine("Please enter a valid format.");
+                    Console.WriteLine("Please enter a valid format input.");
                     continue;
                 }
+                if (guess > 100 || guess < 1){
+                    Console.WriteLine("Please enter a valid value between 1 and 100.");
+                    continue;
+                }
+
+                times += 1;
 
                 if (guess == aim){
                     Console.WriteLine("Congratulations! your value is the expected");
@@ -48,6 +54,8 @@ namespace NumberGuessConsoleApplication
                 else if (guess < aim){
                     Console.WriteLine("You value is lower than the expected, please try again.");
                 }
+ 
+
             }
 
         }
