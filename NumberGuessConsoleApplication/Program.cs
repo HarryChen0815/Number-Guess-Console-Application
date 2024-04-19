@@ -8,11 +8,33 @@ namespace NumberGuessConsoleApplication
         static void Main(string[] args)
         {
 
+            Setting setting = new Setting();
+            var minRange = setting.MinRange;
+            var maxRange = setting.MaxRange;
+            // Print the values
+            Console.WriteLine($"MinRange: {minRange}");
+            Console.WriteLine($"MaxRange: {maxRange}");
+
+            NumberGuessGame game = new NumberGuessGame(minRange, maxRange);
+            game.Proceed();
+
+        }
+    }
+
+    class Setting
+    {
+        public int MinRange { get; private set; }
+        public int MaxRange { get; private set; }
+
+        public Setting()
+        {
             // Create a new configuration builder
             var builder = new ConfigurationBuilder();
 
             // Add the JSON file as configuration
-            builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            builder
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json");
 
             // Build the configuration
             var configuration = builder.Build();
@@ -20,21 +42,12 @@ namespace NumberGuessConsoleApplication
             // Access the NumberGuessSettings section
             var numberGuessSettings = configuration.GetSection("NumberGuessSettings");
 
-            // Access the MinRange and MaxRange values
-            var minRange = int.Parse(numberGuessSettings["MinRange"]);
-            var maxRange = int.Parse(numberGuessSettings["MaxRange"]);
-
-            // Print the values
-            Console.WriteLine($"MinRange: {minRange}");
-            Console.WriteLine($"MaxRange: {maxRange}");
-            // int minRange = 1;
-            // int maxRange = 100;
-
-            // NumberGuessGame game = new NumberGuessGame(minRange, maxRange);
-            // game.Proceed();
-
+            // Access the MinRange and MaxRange values and store them in properties
+            MinRange = int.Parse(numberGuessSettings["MinRange"]);
+            MaxRange = int.Parse(numberGuessSettings["MaxRange"]);
         }
     }
+
 
     class NumberGuessGame
     {
