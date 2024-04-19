@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Configuration;
 
 namespace NumberGuessConsoleApplication
 {
@@ -6,13 +7,32 @@ namespace NumberGuessConsoleApplication
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
-            int minRange = 1;
-            int maxRange = 100;
 
-            NumberGuessGame game = new NumberGuessGame(minRange, maxRange);
-            game.Proceed();
-            
+            // Create a new configuration builder
+            var builder = new ConfigurationBuilder();
+
+            // Add the JSON file as configuration
+            builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            // Build the configuration
+            var configuration = builder.Build();
+
+            // Access the NumberGuessSettings section
+            var numberGuessSettings = configuration.GetSection("NumberGuessSettings");
+
+            // Access the MinRange and MaxRange values
+            var minRange = int.Parse(numberGuessSettings["MinRange"]);
+            var maxRange = int.Parse(numberGuessSettings["MaxRange"]);
+
+            // Print the values
+            Console.WriteLine($"MinRange: {minRange}");
+            Console.WriteLine($"MaxRange: {maxRange}");
+            // int minRange = 1;
+            // int maxRange = 100;
+
+            // NumberGuessGame game = new NumberGuessGame(minRange, maxRange);
+            // game.Proceed();
+
         }
     }
 
