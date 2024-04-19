@@ -84,7 +84,7 @@ namespace NumberGuessConsoleApplication
 
             Console.WriteLine(welcomeMessage);
             Console.WriteLine(instructionMessage);
-            Console.WriteLine(aim);
+            // Console.WriteLine(aim);
 
             while (true)
             {
@@ -127,7 +127,7 @@ namespace NumberGuessConsoleApplication
                         aim = _random.Next(_minRange, _maxRange);
                         times = 0;
                         Console.WriteLine(newInstructionMessage);
-                        Console.WriteLine(aim);
+                        // Console.WriteLine(aim);
                     }
                     else
                     {
