@@ -33,8 +33,8 @@ namespace NumberGuessConsoleApplication
             string invalidNumberMessage = $"Please enter a valid value between {_settingOptions.MinRange} and {_settingOptions.MaxRange}.";
             const string remindInputMessage = "Please enter your guess value";
             const string invalidFormatMessage = "Please enter a valid format input.";
-            const string higherHint = "You value is higher than the expected, please try again.";
-            const string lowerHint = "You value is lower than the expected, please try again.";
+            const string higherHint = "Your value is higher than the expected, please try again.";
+            const string lowerHint = "Your value is lower than the expected, please try again.";
             const string congratulations = "Congratulations! your value is the expected";
             const string playAgainMessage = "Do you want to try it again? (Y/N)";
             const string goodbyeMessage = "End the game. Goodbye!";

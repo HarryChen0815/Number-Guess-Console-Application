@@ -4,8 +4,14 @@ using Microsoft.Extensions.Configuration;
 namespace NumberGuessConsoleApplication
 {
     // Setting class to retrieve configuration values
-    class Setting
+    public class Settings
     {
+        private readonly IConfiguration _configuration;
+        public Settings(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public SettingOptions GetOptions()
         {
             // Create a new configuration builder

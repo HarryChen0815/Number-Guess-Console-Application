@@ -1,7 +1,7 @@
 ﻿namespace NumberGuessConsoleApplication
 {
     // Options class to store configuration options
-    class SettingOptions
+    public class SettingOptions
     {
         public int MinRange { get; }
         public int MaxRange { get; }

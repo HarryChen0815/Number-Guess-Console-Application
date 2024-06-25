@@ -1,5 +1,7 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace NumberGuessConsoleApplication
 {
@@ -7,13 +9,34 @@ namespace NumberGuessConsoleApplication
     {
         static void Main(string[] args)
         {
-            // Create a new instance of Setting to retrieve configuration values
-            Setting setting = new Setting();
-            var options = setting.GetOptions();
+            // Set up DependencyInjection
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
 
-            // Initialize the NumberGuessGame with minRange and maxRange values
-            NumberGuessGame game = new NumberGuessGame(options);
-            game.Proceed();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            // Start the game
+            var game = serviceProvider.GetService<NumberGuessGame>();
+            game?.Proceed();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            // Build configuration
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            // Register configuration
+            services.AddSingleton<IConfiguration>(configuration);
+
+            // Register settings
+            services.AddSingleton<Settings>();
+            services.AddTransient(sp => sp.GetService<Settings>().GetOptions());
+
+            // Register game
+            services.AddTransient<NumberGuessGame>();
         }
     }
 }
